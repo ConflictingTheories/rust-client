@@ -7,15 +7,15 @@ mod components;
 mod layout;
 mod state;
 
-/// We derive Deserialize/Serialize so we can persist app state on shutdown.
+/// Client App - Has State - We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[cfg_attr(feature = "persistence", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "persistence", serde(default))] // if we add new fields, give them default values when deserializing old state
-pub struct TemplateApp {
+pub struct ClientApp {
     state: state::State,
 }
 
 // Initialization
-impl Default for TemplateApp {
+impl Default for ClientApp {
     fn default() -> Self {
         Self {
             state: state::State::new("Hello World!".to_owned(), 2.7),
@@ -23,7 +23,7 @@ impl Default for TemplateApp {
     }
 }
 
-impl epi::App for TemplateApp {
+impl epi::App for ClientApp {
     /// Max window Size
     fn max_size_points(&self) -> Vec2 {
         Vec2::new(1920.0, 1080.0)
@@ -31,7 +31,7 @@ impl epi::App for TemplateApp {
 
     /// Name of App
     fn name(&self) -> &str {
-        "EGUI Test"
+        "Client App"
     }
 
     /// Called by the framework to load old app state (if any).
@@ -56,7 +56,6 @@ impl epi::App for TemplateApp {
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
         // Core App Variables
         let Self { state } = self;
-
         // Menu
         layout::menu::TopMenu::update(ctx, state, frame);
         // Side Panel

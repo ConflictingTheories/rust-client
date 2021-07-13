@@ -1,5 +1,5 @@
 [package]
-name = "egui-test"
+name = "client"
 version = "0.1.0"
 authors = ["Kyle Derby MacInnis <kderbyma@gmail.com>"]
 edition = "2018"

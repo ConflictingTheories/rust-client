@@ -1,8 +1,11 @@
 // Panel UI
 #![allow(dead_code)]
 
-use crate::app::state::State;
+// Dependencies
 use eframe::{egui, epi};
+
+// Modules
+use crate::app::state::State;
 
 // Center Panel
 pub struct MainPanel {}
@@ -26,7 +29,6 @@ impl LeftPanel {
 		egui::SidePanel::left("side_panel").show(ctx, |ui| {
 			// Header
 			ui.heading("Side Panel");
-			
 			// Text Edit
 			ui.horizontal(|ui| {
 				ui.label("Write something: ");

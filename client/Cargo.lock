@@ -158,6 +158,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fff857943da45f546682664a79488be82e69e43c1a7a2307679ab9afb3a66d2e"
 
 [[package]]
+name = "client"
+version = "0.1.0"
+dependencies = [
+ "eframe",
+ "serde",
+]
+
+[[package]]
 name = "clipboard-win"
 version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -477,14 +485,6 @@ source = "git+https://github.com/ConflictingTheories/egui?branch=master#7c5a2d60
 dependencies = [
  "epaint",
  "ron",
- "serde",
-]
-
-[[package]]
-name = "egui-test"
-version = "0.1.0"
-dependencies = [
- "eframe",
  "serde",
 ]
 
