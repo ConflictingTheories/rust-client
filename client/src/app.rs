@@ -54,7 +54,7 @@ impl epi::App for ClientApp {
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
-        // Core App Variables
+        // Core App Variables (state)
         let Self { state } = self;
         // Menu
         layout::menu::TopMenu::update(ctx, state, frame);
@@ -65,10 +65,7 @@ impl epi::App for ClientApp {
         // Show Window
         if true {
             egui::Window::new("Window").show(ctx, |ui| {
-                ui.label("Windows can be moved by dragging them.");
-                ui.label("They are automatically sized based on contents.");
-                ui.label("You can turn on resizing and scrolling if you like.");
-                ui.label("You would normally chose either panels OR windows.");
+                ui.label(state.label.to_string());
             });
         }
     }

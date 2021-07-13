@@ -48,11 +48,11 @@
     <canvas id="main_app"></canvas>
 
     <!-- Wasm Module -->
-    <script src="egui_test.js"></script>
+    <script src="client.js"></script>
 
     <script>
       // Load
-      wasm_bindgen("./egui_test_bg.wasm")
+      wasm_bindgen("./client_bg.wasm")
         .then(on_wasm_loaded)
         .catch(console.error);
       // Run
