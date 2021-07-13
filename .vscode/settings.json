@@ -1,9 +1,0 @@
-{
-	"files.exclude": {
-		"client/output": false,
-		"client/target": false,
-		"client/scripts": false,
-		"client/Cargo.lock": false
-	},
-	"workspace.isHidden": false
-}
