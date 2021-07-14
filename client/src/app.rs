@@ -12,6 +12,7 @@ mod state;
 #[cfg_attr(feature = "persistence", serde(default))] // if we add new fields, give them default values when deserializing old state
 pub struct ClientApp {
     state: state::State,
+    new_state: state::State,
 }
 
 // Initialization
@@ -19,6 +20,9 @@ impl Default for ClientApp {
     fn default() -> Self {
         Self {
             state: state::State::new("Hello World!".to_owned(), 2.7),
+
+            #[cfg_attr(feature = "persistence", serde(skip))]   // Dont Save Temp State
+            new_state: state::State::new("".to_owned(), 0.0),
         }
     }
 }
@@ -55,7 +59,7 @@ impl epi::App for ClientApp {
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
         // Core App Variables (state)
-        let Self { state } = self;
+        let Self { state, new_state } = self;
         // Menu
         layout::menu::TopMenu::update(ctx, state, frame);
         // Side Panel
@@ -63,9 +67,21 @@ impl epi::App for ClientApp {
         // Main Panel
         layout::panels::MainPanel::update(ctx, state, frame);
         // Show Window
-        if true {
-            egui::Window::new("Window").show(ctx, |ui| {
-                ui.label(state.label.to_string());
+        // Window for Project
+        if state.new_proj {
+            egui::Window::new("Project Name").show(ctx, |ui| {
+                ui.label("What would you like you call your project?");
+                ui.text_edit_singleline(&mut new_state.label);
+                ui.separator();
+                // Save
+                if ui.button("Create").clicked() {
+                    state.label = new_state.label.to_string();
+                    new_state.label = "".to_string(); // clear
+                    state.new_proj = false;
+                }
+                if ui.button("Cancel").clicked() {
+                    state.new_proj = false;
+                }
             });
         }
     }

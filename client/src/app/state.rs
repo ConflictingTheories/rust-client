@@ -3,11 +3,12 @@
 pub struct State {
 	pub label: String,
 	pub value: f32,
+	pub new_proj: bool
 }
 
 impl State {
 	pub fn new(label: String, value: f32) -> Self {
-		Self { label, value }
+		Self { label, value, new_proj:false}
 	}
 
 	pub fn set_label(&mut self, label: String) {
