@@ -56,33 +56,10 @@ impl epi::App for ClientApp {
     }
 
     /// Called each time the UI needs repainting, which may be many times per second.
-    /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
         // Core App Variables (state)
-        let Self { state, new_state } = self;
-        // Menu
-        layout::menu::TopMenu::update(ctx, state, frame);
-        // Side Panel
-        layout::panels::LeftPanel::update(ctx, state, frame);
-        // Main Panel
-        layout::panels::MainPanel::update(ctx, state, frame);
-        // Show Window
-        // Window for Project
-        if state.new_proj {
-            egui::Window::new("Project Name").show(ctx, |ui| {
-                ui.label("What would you like you call your project?");
-                ui.text_edit_singleline(&mut new_state.label);
-                ui.separator();
-                // Save
-                if ui.button("Create").clicked() {
-                    state.label = new_state.label.to_string();
-                    new_state.label = "".to_string(); // clear
-                    state.new_proj = false;
-                }
-                if ui.button("Cancel").clicked() {
-                    state.new_proj = false;
-                }
-            });
-        }
+        layout::menu::TopMenu::update(ctx, self, frame);
+        layout::panels::LeftPanel::update(ctx, self, frame);
+        layout::panels::MainPanel::update(ctx, self, frame);
     }
 }

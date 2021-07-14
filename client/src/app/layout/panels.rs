@@ -5,19 +5,29 @@
 use eframe::{egui, epi};
 
 // Modules
-use crate::app::state::State;
+use crate::app::components::windows;
+use crate::app::ClientApp;
 
 // Center Panel
 pub struct MainPanel {}
 impl MainPanel {
 	/// Default Menu UI
-	pub fn update(ctx: &egui::CtxRef, _: &mut State, _: &mut epi::Frame<'_>) {
+	pub fn update(ctx: &egui::CtxRef, app: &mut ClientApp, frame: &mut epi::Frame<'_>) {
+		let ClientApp {
+			state,
+			new_state: _,
+		} = app;
 		egui::CentralPanel::default().show(ctx, |ui| {
 			// The central panel the region left after adding TopPanel's and SidePanel's
 			ui.heading("Calliope");
 			ui.hyperlink("https://calliope.site");
 			egui::warn_if_debug_build(ui);
 		});
+
+		// Window for Project
+		if state.new_proj {
+			windows::CreateProjectWindow::update(ctx, app, frame);
+		}
 	}
 }
 
@@ -25,7 +35,11 @@ impl MainPanel {
 pub struct LeftPanel {}
 impl LeftPanel {
 	/// Default Menu UI
-	pub fn update(ctx: &egui::CtxRef, state: &mut State, _: &mut epi::Frame<'_>) {
+	pub fn update(ctx: &egui::CtxRef, app: &mut ClientApp, _: &mut epi::Frame<'_>) {
+		let ClientApp {
+			state,
+			new_state: _,
+		} = app;
 		egui::SidePanel::left("side_panel").show(ctx, |ui| {
 			// Header
 			ui.heading("Side Panel");
