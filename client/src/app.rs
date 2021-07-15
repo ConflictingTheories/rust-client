@@ -3,9 +3,9 @@ use eframe::{egui, epi};
 use egui::Vec2;
 
 // Modules
-mod services;
 mod components;
 mod layout;
+mod services;
 mod state;
 
 /// Client App - Has State - We derive Deserialize/Serialize so we can persist app state on shutdown.
@@ -14,8 +14,8 @@ mod state;
 pub struct ClientApp {
     pub state: state::State,
     top_menu: layout::menu::TopMenu,
-    side_panel: layout::panels::LeftPanel,
-    main_panel: layout::panels::MainPanel,
+    side_panel: layout::panels::left::LeftPanel,
+    main_panel: layout::panels::main::MainPanel,
 }
 
 // Initialization
@@ -27,9 +27,9 @@ impl Default for ClientApp {
             #[cfg_attr(feature = "persistence", serde(skip))]
             top_menu: layout::menu::TopMenu::new(),
             #[cfg_attr(feature = "persistence", serde(skip))]
-            side_panel: layout::panels::LeftPanel::new(),
+            side_panel: layout::panels::left::LeftPanel::new(),
             #[cfg_attr(feature = "persistence", serde(skip))]
-            main_panel: layout::panels::MainPanel::new(),
+            main_panel: layout::panels::main::MainPanel::new(),
         }
     }
 }
