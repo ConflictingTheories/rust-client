@@ -1,2 +1,3 @@
 pub mod menu;
-pub mod panels;
+pub mod main;
+pub mod left;

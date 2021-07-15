@@ -14,8 +14,8 @@ mod state;
 pub struct ClientApp {
     pub state: state::State,
     top_menu: layout::menu::TopMenu,
-    side_panel: layout::panels::left::LeftPanel,
-    main_panel: layout::panels::main::MainPanel,
+    side_panel: layout::left::LeftPanel,
+    main_panel: layout::main::MainPanel,
 }
 
 // Initialization
@@ -27,9 +27,9 @@ impl Default for ClientApp {
             #[cfg_attr(feature = "persistence", serde(skip))]
             top_menu: layout::menu::TopMenu::new(),
             #[cfg_attr(feature = "persistence", serde(skip))]
-            side_panel: layout::panels::left::LeftPanel::new(),
+            side_panel: layout::left::LeftPanel::new(),
             #[cfg_attr(feature = "persistence", serde(skip))]
-            main_panel: layout::panels::main::MainPanel::new(),
+            main_panel: layout::main::MainPanel::new(),
         }
     }
 }
