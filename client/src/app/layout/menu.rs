@@ -18,11 +18,16 @@ impl TopMenu {
 		egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
 			egui::menu::bar(ui, |ui| {
 				egui::menu::menu(ui, "File", |ui| {
-					if ui.button("New Project").clicked() {
-						state.new_proj = true;
+					if state.is_authorized {
+						if ui.button("New Project").clicked() {
+							state.new_proj = true;
+						}
+						if ui.button("Logout").clicked() {
+							state.is_authorized = false;
+						}
 					}
-					if ui.button("Quit").clicked() {
-						frame.quit();
+					if ui.button("Login").clicked() {
+						state.is_authorized = false;
 					}
 				});
 			});

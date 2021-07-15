@@ -3,6 +3,7 @@ use eframe::{egui, epi};
 use egui::Vec2;
 
 // Modules
+mod services;
 mod components;
 mod layout;
 mod state;
