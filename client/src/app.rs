@@ -1,6 +1,6 @@
 // Dependencies
-use crate::app::egui::Vec2;
 use eframe::{egui, epi};
+use egui::Vec2;
 
 // Modules
 mod components;

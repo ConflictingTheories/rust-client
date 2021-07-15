@@ -8,39 +8,47 @@ use eframe::{egui, epi};
 use crate::app::components::windows;
 use crate::app::state::State;
 
-// Center Panel
+/// Center Panel
 pub struct MainPanel {
 	new_project_window: windows::CreateProjectWindow,
+	cash_flow: crate::app::components::elements::graph::CashFlowPlot,
 }
 impl MainPanel {
+	// Constructor - Initialize Widgets / Components
 	pub fn new() -> Self {
 		Self {
 			new_project_window: windows::CreateProjectWindow::new(),
+			cash_flow: crate::app::components::elements::graph::CashFlowPlot::new("cash_flow"),
 		}
 	}
-	/// Default Menu UI
+
+	// Update - Draws UI each Frame
 	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, frame: &mut epi::Frame<'_>) {
 		egui::CentralPanel::default().show(ctx, |ui| {
-			// The central panel the region left after adding TopPanel's and SidePanel's
-			ui.heading("Calliope");
-			ui.hyperlink("https://calliope.site");
-			egui::warn_if_debug_build(ui);
+			
+			// Cash Flow Plot area
+			self.cash_flow.update(ctx, state, frame);
+			
+			// -- State Based Windows
+			
+			// Window for Project
+			if state.new_proj {
+				self.new_project_window.update(ctx, state, frame);
+			}
+		
 		});
-
-		// Window for Project
-		if state.new_proj {
-			self.new_project_window.update(ctx, state, frame);
-		}
 	}
 }
 
-// Left Panel
+/// Left Panel
 pub struct LeftPanel {}
 impl LeftPanel {
+	// Constructor - Initialize Widgets / Components
 	pub fn new() -> Self {
 		Self {}
 	}
-	/// Default Menu UI
+
+	// Update - Draws UI each Frame
 	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, _: &mut epi::Frame<'_>) {
 		egui::SidePanel::left("side_panel").show(ctx, |ui| {
 			// Header
