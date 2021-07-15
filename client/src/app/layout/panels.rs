@@ -24,7 +24,7 @@ impl MainPanel {
 
 	// Update - Draws UI each Frame
 	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, frame: &mut epi::Frame<'_>) {
-		egui::CentralPanel::default().show(ctx, |ui| {
+		egui::CentralPanel::default().show(ctx, |_ui| {
 			
 			// Cash Flow Plot area
 			self.cash_flow.update(ctx, state, frame);
