@@ -25,9 +25,10 @@ impl TopMenu {
 						if ui.button("Logout").clicked() {
 							state.is_authorized = false;
 						}
-					}
-					if ui.button("Login").clicked() {
-						state.is_authorized = false;
+					} else {
+						if ui.button("Login").clicked() {
+							state.is_authorized = false;
+						}
 					}
 				});
 			});
