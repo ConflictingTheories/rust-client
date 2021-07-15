@@ -5,20 +5,20 @@
 use eframe::{egui, epi};
 
 // Modules
-use crate::app::components::windows;
+use crate::app::components::{windows, elements};
 use crate::app::state::State;
 
 /// Center Panel
 pub struct MainPanel {
 	new_project_window: windows::CreateProjectWindow,
-	cash_flow: crate::app::components::elements::graph::CashFlowPlot,
+	cash_flow: elements::graph::CashFlowPlot,
 }
 impl MainPanel {
 	// Constructor - Initialize Widgets / Components
 	pub fn new() -> Self {
 		Self {
 			new_project_window: windows::CreateProjectWindow::new(),
-			cash_flow: crate::app::components::elements::graph::CashFlowPlot::new("cash_flow"),
+			cash_flow: elements::graph::CashFlowPlot::new("cash_flow"),
 		}
 	}
 
