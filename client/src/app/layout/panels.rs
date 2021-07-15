@@ -6,17 +6,20 @@ use eframe::{egui, epi};
 
 // Modules
 use crate::app::components::windows;
-use crate::app::ClientApp;
+use crate::app::state::State;
 
 // Center Panel
-pub struct MainPanel {}
+pub struct MainPanel {
+	new_project_window: windows::CreateProjectWindow,
+}
 impl MainPanel {
+	pub fn new() -> Self {
+		Self {
+			new_project_window: windows::CreateProjectWindow::new(),
+		}
+	}
 	/// Default Menu UI
-	pub fn update(ctx: &egui::CtxRef, app: &mut ClientApp, frame: &mut epi::Frame<'_>) {
-		let ClientApp {
-			state,
-			new_state: _,
-		} = app;
+	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, frame: &mut epi::Frame<'_>) {
 		egui::CentralPanel::default().show(ctx, |ui| {
 			// The central panel the region left after adding TopPanel's and SidePanel's
 			ui.heading("Calliope");
@@ -26,7 +29,7 @@ impl MainPanel {
 
 		// Window for Project
 		if state.new_proj {
-			windows::CreateProjectWindow::update(ctx, app, frame);
+			self.new_project_window.update(ctx, state, frame);
 		}
 	}
 }
@@ -34,12 +37,11 @@ impl MainPanel {
 // Left Panel
 pub struct LeftPanel {}
 impl LeftPanel {
+	pub fn new() -> Self {
+		Self {}
+	}
 	/// Default Menu UI
-	pub fn update(ctx: &egui::CtxRef, app: &mut ClientApp, _: &mut epi::Frame<'_>) {
-		let ClientApp {
-			state,
-			new_state: _,
-		} = app;
+	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, _: &mut epi::Frame<'_>) {
 		egui::SidePanel::left("side_panel").show(ctx, |ui| {
 			// Header
 			ui.heading("Side Panel");

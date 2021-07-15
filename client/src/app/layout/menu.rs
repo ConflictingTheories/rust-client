@@ -5,17 +5,16 @@
 use eframe::{egui, epi};
 
 // Modules
-use crate::app::ClientApp;
+use crate::app::state::State;
 
 // Top Menu
 pub struct TopMenu {}
 impl TopMenu {
+	pub fn new() -> Self {
+		Self {}
+	}
 	/// Default Menu UI
-	pub fn update(ctx: &egui::CtxRef, app: &mut ClientApp, frame: &mut epi::Frame<'_>) {
-		let ClientApp {
-			state,
-			new_state: _,
-		} = app;
+	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, frame: &mut epi::Frame<'_>) {
 		egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
 			egui::menu::bar(ui, |ui| {
 				egui::menu::menu(ui, "File", |ui| {

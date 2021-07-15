@@ -11,8 +11,10 @@ mod state;
 #[cfg_attr(feature = "persistence", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "persistence", serde(default))] // if we add new fields, give them default values when deserializing old state
 pub struct ClientApp {
-    state: state::State,
-    new_state: state::State,
+    pub state: state::State,
+    top_menu: layout::menu::TopMenu,
+    side_panel: layout::panels::LeftPanel,
+    main_panel: layout::panels::MainPanel,
 }
 
 // Initialization
@@ -21,8 +23,12 @@ impl Default for ClientApp {
         Self {
             state: state::State::new("Hello World!".to_owned(), 2.7),
 
-            #[cfg_attr(feature = "persistence", serde(skip))]   // Dont Save Temp State
-            new_state: state::State::new("".to_owned(), 0.0),
+            #[cfg_attr(feature = "persistence", serde(skip))]
+            top_menu: layout::menu::TopMenu::new(),
+            #[cfg_attr(feature = "persistence", serde(skip))]
+            side_panel: layout::panels::LeftPanel::new(),
+            #[cfg_attr(feature = "persistence", serde(skip))]
+            main_panel: layout::panels::MainPanel::new(),
         }
     }
 }
@@ -57,9 +63,10 @@ impl epi::App for ClientApp {
 
     /// Called each time the UI needs repainting, which may be many times per second.
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
+        let Self { state, .. } = self;
         // Core App Variables (state)
-        layout::menu::TopMenu::update(ctx, self, frame);
-        layout::panels::LeftPanel::update(ctx, self, frame);
-        layout::panels::MainPanel::update(ctx, self, frame);
+        self.top_menu.update(ctx, state, frame);
+        self.side_panel.update(ctx, state, frame);
+        self.main_panel.update(ctx, state, frame);
     }
 }
