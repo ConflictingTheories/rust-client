@@ -1,2 +1,2 @@
-pub mod windows;
+pub mod popups;
 pub mod graph;

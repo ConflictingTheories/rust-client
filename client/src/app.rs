@@ -22,13 +22,12 @@ pub struct ClientApp {
 impl Default for ClientApp {
     fn default() -> Self {
         Self {
-            state: state::State::new("Hello World!".to_owned(), 2.7),
-
-            #[cfg_attr(feature = "persistence", serde(skip))]
+            state: state::State::new("Hello World!".to_owned(), 2.7), 
+            #[cfg_attr(feature = "persistence", serde(skip))]   // ignore 
             top_menu: layout::menu::TopMenu::new(),
-            #[cfg_attr(feature = "persistence", serde(skip))]
+            #[cfg_attr(feature = "persistence", serde(skip))]   // ignore
             side_panel: layout::left::LeftPanel::new(),
-            #[cfg_attr(feature = "persistence", serde(skip))]
+            #[cfg_attr(feature = "persistence", serde(skip))]   // ignore
             main_panel: layout::main::MainPanel::new(),
         }
     }
@@ -66,8 +65,8 @@ impl epi::App for ClientApp {
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
         let Self { state, .. } = self;
         // Core App Variables (state)
-        self.top_menu.update(ctx, state, frame);
-        self.side_panel.update(ctx, state, frame);
-        self.main_panel.update(ctx, state, frame);
+        self.top_menu.render(ctx, state, frame);
+        self.side_panel.render(ctx, state, frame);
+        self.main_panel.render(ctx, state, frame);
     }
 }

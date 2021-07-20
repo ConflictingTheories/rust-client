@@ -14,7 +14,7 @@ impl TopMenu {
 		Self {}
 	}
 	/// Default Menu UI
-	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, _frame: &mut epi::Frame<'_>) {
+	pub fn render(&mut self, ctx: &egui::CtxRef, state: &mut State, _frame: &mut epi::Frame<'_>) {
 		egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
 			egui::menu::bar(ui, |ui| {
 				egui::menu::menu(ui, "File", |ui| {

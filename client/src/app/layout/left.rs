@@ -24,7 +24,7 @@ impl LeftPanel {
 	}
 
 	// Update - Draws UI each Frame
-	pub fn update(&mut self, ctx: &egui::CtxRef, state: &mut State, _: &mut epi::Frame<'_>) {
+	pub fn render(&mut self, ctx: &egui::CtxRef, state: &mut State, _: &mut epi::Frame<'_>) {
 		egui::SidePanel::left("side_panel").show(ctx, |ui| {
 			if state.is_authorized {
 				// Authorized

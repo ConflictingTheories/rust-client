@@ -38,7 +38,7 @@ impl CashFlowPlot {
 	}
 
 	/// Draws UI
-	pub fn update(&mut self, ctx: &egui::CtxRef, _state: &mut State, _frame: &mut epi::Frame<'_>) {
+	pub fn render(&mut self, ctx: &egui::CtxRef, _state: &mut State, _frame: &mut epi::Frame<'_>) {
 		// Chart (Align and Snap to Parent)
 
 		// Settings Area (draggable)
