@@ -25,17 +25,28 @@ impl MainPanel {
 
 	// Update - Draws UI each Frame
 	pub fn render(&mut self, ctx: &egui::CtxRef, state: &mut State, frame: &mut epi::Frame<'_>) {
-		egui::CentralPanel::default().show(ctx, |_ui| {
-			// ATTN: IMMEDIATE MODE
-			if state.is_authorized {
-				// Cash Flow Plot area
-				self.cash_flow.render(ctx, state, frame);
-				// -- State Based Windows
-				// Window for Project
-				if state.new_proj {
-					self.new_project_window.render(ctx, state, frame);
+		// ATTN: IMMEDIATE MODE
+		egui::CentralPanel::default()
+			.frame(egui::containers::Frame::dark_canvas(&ctx.style()))
+			.show(ctx, |ui| {
+				// Dark Background
+				match state.is_authorized {
+					// Logged in
+					(true) => {
+						// Cash Flow Plot area
+						self.cash_flow.render(ctx, state, frame);
+						// -- State Based Windows
+						// Window for Project
+						if state.new_proj {
+							self.new_project_window.render(ctx, state, frame);
+						}
+					}
+					// Not Authorized
+					(false) => {
+						// Signup / Registration
+						ui.label("Welcome to the Rusty Client!");
+					}
 				}
-			}
-		});
+			});
 	}
 }
