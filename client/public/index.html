@@ -21,7 +21,7 @@
             or where the egui canvas is translucent. */
         background: #404040;
       }
-
+      
       /* Allow canvas to fill entire web page: */
       html,
       body {
@@ -45,7 +45,7 @@
 
   <body>
     <!-- The WASM code will resize this canvas to cover the entire screen -->
-    <canvas id="main_app"></canvas>
+    <canvas id="main_app" tabindex="0"></canvas>
 
     <!-- Wasm Module -->
     <script src="client.js"></script>
