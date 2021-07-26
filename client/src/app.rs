@@ -24,34 +24,31 @@ pub struct ClientApp {
 // Initialization
 impl Default for ClientApp {
     fn default() -> Self {
+        
+        // Initialize Base Easter Eggs
         let mut Eggs = HashMap::<String, EasterEgg>::new();
-
         for e in vec!["red", "blue", "green", "test-egg"] {
-            // Initialize Base Easter Eggs
+            let mut east = EasterEgg::new(e);
             match e {
                 "red" => {
-                    let mut east = EasterEgg::new(e);
                     let mut secret = Secret::new(SecretType::int);
                     secret.seti32(1010);
                     east.set_secret(secret);
                     Eggs.insert(e.to_string(), east);
                 }
                 "green" => {
-                    let mut east = EasterEgg::new(e);
                     let mut secret = Secret::new(SecretType::float);
                     secret.setf32(10.0);
                     east.set_secret(secret);
                     Eggs.insert(e.to_string(), east);
                 }
                 "blue" => {
-                    let mut east = EasterEgg::new(e);
                     let mut secret = Secret::new(SecretType::string);
                     secret.setstr("yolo");
                     east.set_secret(secret);
                     Eggs.insert(e.to_string(), east);
                 }
                 "test-egg" => {
-                    let mut east = EasterEgg::new(e);
                     let mut secret = Secret::new(SecretType::int);
                     secret.seti32(100);
                     east.set_secret(secret);
