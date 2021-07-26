@@ -33,8 +33,8 @@ impl Component for CreateProjectPopup {
 			if ui.button("Create").clicked() {
 				// Easter Egg -- Check Name
 				if (&self.label.to_string() == "hello") {
-					for e in &mut state.easter_eggs {
-						match e.label.as_ref() {
+					for (key, e) in &mut state.easter_eggs {
+						match key.as_ref() {
 							"test-egg" => {
 								let mut sct = Secret::new(SecretType::int);
 								sct.seti32(100);

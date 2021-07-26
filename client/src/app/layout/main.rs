@@ -40,7 +40,7 @@ impl MainPanel {
 						// Check Easter Eggs
 						ui.label("You have found the following Easter Eggs: ");
 						ui.separator();
-						for e in &state.easter_eggs {
+						for (key, e) in state.easter_eggs.iter_mut() {
 							match e.is_found() {
 								true => {
 									ui.horizontal(|ui| {

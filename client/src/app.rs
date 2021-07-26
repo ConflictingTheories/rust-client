@@ -8,6 +8,9 @@ mod layout;
 mod services;
 mod state;
 
+use crate::app::services::easter_egg::{EasterEgg, Key, Secret, SecretType};
+use std::collections::HashMap;
+
 /// Client App - Has State - We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[cfg_attr(feature = "persistence", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "persistence", serde(default))] // if we add new fields, give them default values when deserializing old state
@@ -21,8 +24,38 @@ pub struct ClientApp {
 // Initialization
 impl Default for ClientApp {
     fn default() -> Self {
+        let mut Eggs = HashMap::<String, EasterEgg>::new();
+
+        for e in vec!["red", "blue", "green"] {
+            // Initialize Base Easter Eggs
+            match e {
+                "red" => {
+                    let mut east = EasterEgg::new(e);
+                    let mut secret = Secret::new(SecretType::int);
+                    secret.seti32(100);
+                    east.set_secret(secret);
+                    Eggs.insert(e.to_string(), east);
+                }
+                "green" => {
+                    let mut east = EasterEgg::new(e);
+                    let mut secret = Secret::new(SecretType::float);
+                    secret.setf32(10.0);
+                    east.set_secret(secret);
+                    Eggs.insert(e.to_string(), east);
+                }
+                "blue" => {
+                    let mut east = EasterEgg::new(e);
+                    let mut secret = Secret::new(SecretType::string);
+                    secret.setstr("yolo");
+                    east.set_secret(secret);
+                    Eggs.insert(e.to_string(), east);
+                }
+                _ => {}
+            }
+        }
+
         Self {
-            state: state::State::new("Hello World!".to_owned(), 2.7), 
+            state: state::State::new("Hello World!".to_owned(), 2.7, Some(Eggs)), 
             #[cfg_attr(feature = "persistence", serde(skip))]   // ignore 
             top_menu: layout::menu::TopMenu::new(),
             #[cfg_attr(feature = "persistence", serde(skip))]   // ignore
