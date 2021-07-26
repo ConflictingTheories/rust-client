@@ -5,8 +5,9 @@
 use eframe::{egui, epi};
 
 // Modules
-use crate::app::state::State;
 use crate::app::components::Component;
+use crate::app::services::easter_egg::{Key, Secret, SecretType};
+use crate::app::state::State;
 
 // State
 pub struct CreateProjectPopup {
@@ -30,11 +31,27 @@ impl Component for CreateProjectPopup {
 			ui.separator();
 			// Save
 			if ui.button("Create").clicked() {
+				// Easter Egg -- Check Name
+				if (&self.label.to_string() == "hello") {
+					for e in &mut state.easter_eggs {
+						match e.label.as_ref() {
+							"test-egg" => {
+								let mut sct = Secret::new(SecretType::int);
+								sct.seti32(100);
+								let mut key = Key::new();
+								key.encode(&sct);
+								e.unlock(&key);
+							}
+							_ => {}
+						}
+					}
+				}
+
+				// Change Text
 				state.label = self.label.to_string();
 				self.label.clear();
 				state.new_proj = false;
 			}
-	
 			if ui.button("Cancel").clicked() {
 				state.new_proj = false;
 			}
